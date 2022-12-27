@@ -18,7 +18,10 @@ const setupAndStartServer = async (PORT) => {
 
     app.listen(PORT, () => {
         console.log(`Server started at ${PORT}`);
-        let cityRepo = new CityRepository()
+        if (process.env.SYNC_DB) {
+            db.sequelize.sync({ alter: true });
+        }
+        // let cityRepo = new CityRepository()
         // cityRepo.createCity({ name: "Samastipur" })
     })
 };

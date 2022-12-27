@@ -85,8 +85,11 @@ const update = async (req, res) => {
 }
 //RAM
 const getAll = async (req, res) => {
+    console.log(req.query, "LINE 89");
+
     try {
-        const cities = await cityService.getAllCities();
+        // console.log(req.query, "LINE 89");
+        const cities = await cityService.getAllCities(req.query);
         return res.status(200).json({
             data: cities,
             success: true,
