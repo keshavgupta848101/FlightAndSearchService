@@ -7,6 +7,8 @@ const router = express.Router();
 router.get('/city', CityController.getAll);
 
 router.post('/city', CityController.create);
+router.post('/bulkCity', CityController.bulkCreate);
+
 router.delete('/city/:id', CityController.destroy);
 router.get('/city/:id', CityController.get);
 // router.get('/city', CityController.getAll);
