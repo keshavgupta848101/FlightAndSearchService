@@ -1,6 +1,6 @@
 const express = require('express');
 const CityController = require('../../controllers/city-controller');
-// const FlightController = require('../../controllers/flight-controller.js');
+const FlightController = require('../../controllers/flight-controller.js');
 
 const router = express.Router();
 // M = POST http://loalhost:3000/api/v1/city
@@ -16,5 +16,14 @@ router.patch('/city/:id', CityController.update);
 
 // router.post('/flights', FlightController.create);
 // router.get('/flights', FlightController.getAll);
+
+router.post(
+    '/flights',
+    // FlightMiddlewares.validateCreateFlight,
+    FlightController.create
+);
+router.get('/flights', FlightController.getAll);
+
+// router.post('/airports', AirportController.create);
 
 module.exports = router;

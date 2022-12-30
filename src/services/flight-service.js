@@ -1,7 +1,7 @@
 const { FlightRespository, AirplaneRespository } = require('../repository/index');
 const { compareTime } = require('../utils/helper.js');
 
-class FlightServices {
+class FlightService {
     constructor() {
         this.airplaneRespository = new AirplaneRespository();
         this.flightRespository = new FlightRespository();
@@ -35,3 +35,16 @@ class FlightServices {
 }
 
 module.exports = FlightService;
+
+/**
+ * {
+ *   flightNumber,
+ *  airplaneId ,
+ *   departureAirportId,
+ *   arrivalAirportId,
+ *   arrivalTime,
+ *   departureTime,
+ *   price
+ *   totalSeats -> airplane
+ * }
+ */

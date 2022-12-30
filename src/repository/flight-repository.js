@@ -1,24 +1,30 @@
 const { Flights } = require('../models/index');
-const { op } = require('sequelize');
+const { Op } = require('sequelize');
 
-class FlightRepository {
+class FlightRespository {
 
-    #CreateFilter(data) {
+    #createFilter(data) {
         let filter = {};
         if (data.arrivalAirportId) {
             filter.arrivalAirportId = data.arrivalAirportId;
         }
-
         if (data.departureAirportId) {
             filter.departureAirportId = data.departureAirportId;
         }
 
+        // if(data.minPrice && data.maxPrice) {
+        //     Object.assign(filter, {
+        //         [Op.and]: [
+        //             { price: {[Op.lte]: data.maxPrice} }, 
+        //             { price: {[Op.gte]: data.minPrice} }
+        //         ]
+        //     })
+        // }
         let priceFilter = [];
-
         if (data.minPrice) {
-            priceFilter.push({ price: { [Op.gte]: data.minPrice } })
+            // Object.assign(filter, {price: {[Op.gte]: data.minPrice}});
+            priceFilter.push({ price: { [Op.gte]: data.minPrice } });
         }
-
         if (data.maxPrice) {
             // Object.assign(filter, {price: {[Op.lte]: data.maxPrice}});
             priceFilter.push({ price: { [Op.lte]: data.maxPrice } });
@@ -29,8 +35,7 @@ class FlightRepository {
         return filter;
     }
 
-
-    async CreateFlight(data) {
+    async createFlight(data) {
         try {
             const flight = await Flights.create(data);
             return flight;
@@ -40,7 +45,7 @@ class FlightRepository {
         }
     }
 
-    async GetFlight(flightId) {
+    async getFlight(flightId) {
         try {
             const flight = await Flights.findByPk(flightId);
             return flight;
@@ -50,13 +55,12 @@ class FlightRepository {
         }
     }
 
-    async getallFlights(filter) {
+    async getAllFlights(filter) {
         try {
-            const filterObject = this.#createFilter(filter)
+            const filterObject = this.#createFilter(filter);
             const flight = await Flights.findAll({
                 where: filterObject
-            })
-
+            });
             return flight;
         } catch (error) {
             console.log("Something went wrong in the repository layer");
@@ -64,19 +68,12 @@ class FlightRepository {
         }
     }
 
+
 }
 
-module.exports = FlightRepository;
-
-/**
- * {
- *   flightNumber,
- *  airplaneId ,
- *   departureAirportId,
- *   arrivalAirportId,
- *   arrivalTime,
- *   departureTime,
- *   price
- *   totalSeats -> airplane
- * }
- */
+module.exports = FlightRespository;
+/*
+{
+    where: {}
+}
+*/

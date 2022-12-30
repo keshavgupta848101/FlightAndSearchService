@@ -1,6 +1,6 @@
 const { Airplane } = require('../models/index');
 
-class AirplaneRepository {
+class AirplaneRespository {
     async getAirplane(id) {
         try {
             const airplane = await Airplane.findByPk(id);
@@ -12,4 +12,4 @@ class AirplaneRepository {
     }
 }
 
-module.exports = AirplaneRepository;
+module.exports = AirplaneRespository;
